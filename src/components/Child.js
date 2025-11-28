@@ -1,22 +1,23 @@
 import React, { useState } from 'react'
 
 const Child = ({tabs}) => {
-    const[tab, setTab] = useState("");
+    const [activeTab, setActiveTab] = useState(1);
 
     function handleTab(id){
-        let t = tabs.find((t,ind)=>ind==id);
-        setTab(t);
+        let t = tabs.find(t=>t.id==id);
+        if(t)setActiveTab(t.content);
     }
+
   return (
     <div>
         <ul>
-            {tabs.map((t,ind)=>{
+            {tabs.map(t=>{
                 return(
-                    <li key="ind" onClick={()=>handleTab(ind)}>{t}</li>
+                    <li key={t.id} onClick={()=>handleTab(t.id)}><span>{t.title} {t.content}</span></li>
                 )
             })}
         </ul>
-        <p>This is the content for {tab}</p>
+        <p>This is the content for Tab {activeTab}.</p>
     </div>
   )
 }
